@@ -1,0 +1,83 @@
+{% extends 'admin_app/base.html' %}
+{% load static %}
+
+{% block content  %}
+{% include 'admin_app/nav.html' %}
+<div class="banner"></div>
+<div class="container-fluid">
+    <div class="jumbotron row">
+        {% if messages %}
+        <div class="messages col-md-12">
+            {% for message in messages %}
+            <div {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %} class="alert alert-{{ message.tags }}"
+                {% endif %}>
+                {{ message }}.
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <h1 class="col-md-6">DIOOOF !! {% if user.is_authenticated %} Bienvenue {{ user.username }} {% endif %} !</h1>
+        <div class="col-md-4">
+            <h1 class="lead">Mais SOUWAY...</h1>
+            <img class="loy_diaye" width="75%" src="{% static 'images/loy_diaye2.png' %}" alt="np_image_yet">
+        </div>
+    </div>
+
+    {% if annonces %}
+
+    <div class="row mb-3">
+        <div class="col-md-6 ml-3">
+            <h3>Devouvrez notre large gamme de produits</h3>
+
+            {% if not user.is_authenticated %}
+
+            <a href="{% url 'sign-up' %}" type="button" class="btn btn-primary">S'incrire</a>
+            <small class="text-muted">Deja inscrit ?</small>
+            <a href="{% url 'login' %}" type="button" class="btn btn-primary">Connectez vous maintenant</a>
+            {% else %}
+            <a href="{% url 'create' %}" type="button" class="btn btn-primary">Publiez votre propre annonce</a>
+            {% endif %}
+            <br>
+            <img class="img img-fluid" src="{% static 'images/hand.jpg' %}">
+        </div>
+        <div class="col-md-4 card col-sm-12" style="width: 18rem;">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    {% for annonce in annonces %}
+                    {% if forloop.counter == 1 %}
+                    <div class="carousel-item active">
+                        {% else %}
+                        <div class="carousel-item">
+                            {% endif %}
+                            <a href="{% url 'detail' annonce.id %}" data-toggle="tooltip" data-placement="right"
+                                title="Cliquez pour poursuivre l'annonce !">
+                                <img class="card-img-top" height="400" src="{{ annonce.photo.url }}">
+                            </a>
+
+                            <div class="card-body">
+                                <a class="card-title" href="{% url 'detail' annonce.id %}">
+                                    <h5>{{ annonce.titre }}</h5>
+                                </a>
+                                <p class="card-text">{{ annonce.description }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <a href="{% url 'read' %}" class="btn btn-primary mb-2">Voir tous les produits</a>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                            data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                            data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% endblock %}

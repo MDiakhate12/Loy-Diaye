@@ -1,0 +1,45 @@
+{% extends 'admin_app/base.html' %}
+{% load static %}
+{% block content %}
+{% include 'admin_app/nav.html' %}
+<div class="container-fluid ajout" style="background-image: url({% static 'images/bg11.jpg' %}); height: 640px;">
+    <div class="row ml-2">
+        <div class="col-md-6 col-sm-12 mt-3">
+
+            <form id="ajoutAnnonce" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">✍</div>
+                    </div>
+                    {{ form.titre }}
+                </div>
+                <div class="input-group">
+                    <input type="file" name="photo" placeholder="Photo de l'article">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">🚗</div>
+                    </div>
+                    {{ form.categorie }}
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">💵</div>
+                    </div>
+                    {{ form.prix }}
+                </div>
+                <div class="input-group">
+                    {{ form.description }}
+                </div>
+                <div class="input-group">
+                    <button type="submit" class="btn btn-info btn-lg">Publier Annonce</button>
+                </div>
+            </form>
+        </div>
+        <img class="loy_diaye mt-3" width="250" height="5%" src="{% static 'images/loy_diaye2.png' %}">
+    </div>
+
+</div>
+
+{% endblock %}

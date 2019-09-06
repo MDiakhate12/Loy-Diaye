@@ -1,0 +1,23 @@
+{% extends 'admin_app/base.html' %}
+{% block content %}
+
+{% include 'admin_app/nav.html' %}
+<div class="banner"></div>
+
+
+<div class="card bg-light col-md-6 col-sm-12 mt-3 ml-2 mb-2 detail_card">
+    <img class="card-img-top" src="{{ annonce.photo.url }}" alt="no_image_yet">
+    <div class=" card-body">
+        <h5 class="card-title">{{ annonce.titre }}</h5>
+        <p>Categorie : {{ annonce.categorie }}</p>
+        <p class="card-text">{{ annonce.description }}</p>
+        <h3 class="card-header bg-info">{{ annonce.prix }} FCFA</h3>
+    </div>
+    <div class="card-footer">
+        <small class="text-muted">{{ annonce.date_ajout }}</small>
+    </div>
+</div>
+
+</div>
+
+{% endblock %}

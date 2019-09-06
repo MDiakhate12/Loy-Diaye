@@ -1,0 +1,47 @@
+{% load static %}
+<nav class="navbar navbar-dark bg-info navbar-lg navbar-expand-lg ">
+        <a class="navbar-brand" href="#"><img src="{% static 'images/loy_diaye3.png' %}" alt="no_image_yet" height="80"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a type="button" class="nav-link btn btn-info" href="{% url 'index' %}"><i class="fas fa-home"></i> Accueil</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item active">
+                    <a type="button" class="nav-link btn btn-info" class="nav-link" href="{% url 'create' %}"><i class="fas fa-file-invoice-dollar"></i> Publier une annonce de produits</a>
+                </li>
+                {% endif %}
+                <li class="nav-item active">
+                    <a type="button" class="nav-link btn btn-info" class="nav-link" href="{% url 'read' %}"><i class="fas fa-shopping-cart"></i> Nos produits</a>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group mr-4 d-sm">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                {% if not user.is_authenticated %}
+                <img class="log-img" src="{% static 'images/account1.jpg' %}">
+                {% else %}
+                <img class="log-img" src="{{ user.profile.photo.url }}" width="80" height="80">
+                {% endif %}
+            </button>
+            <div class=" dropdown-menu dropdown-menu-right">
+                {% if user.is_authenticated %}
+                <a class="dropdown-item" href="{% url 'profile' user.id %}">Mon profil <i class="far fa-user"></i></a>
+                {% endif %}
+                {% if not user.is_authenticated %}
+                <a class="dropdown-item" href="{% url 'login' %}">Se connecter</a>
+                <a class="dropdown-item" href="{% url 'sign-up' %}">S'incrire</a>
+                {% endif %}
+                <div class="dropdown-divider"></div>
+                {% if user.is_authenticated %}
+                </i><a class="dropdown-item" href="{% url 'logout' %}">Logout <i class="fas fa-sign-out-alt"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
